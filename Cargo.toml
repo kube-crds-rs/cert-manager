@@ -1,6 +1,6 @@
 [package]
 name = "k8s-crds-cert-manager"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 license = "MIT"
 description = "Kubernetes CRDs for cert-manager 1.13.3"

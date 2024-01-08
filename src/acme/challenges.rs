@@ -11,7 +11,7 @@ use std::collections::HashMap;
 #[cfg(feature = "builder")]
 use typed_builder::TypedBuilder;
 
-#[derive(CustomResource, Serialize, Deserialize, Clone, Debug)]
+#[derive(CustomResource, Serialize, Deserialize, Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 #[cfg_attr(not(feature = "schemars"), kube(schema = "disabled"))]

@@ -11,7 +11,7 @@ use std::collections::BTreeMap;
 use typed_builder::TypedBuilder;
 
 /// Specification of the desired state of the Certificate resource. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-#[derive(CustomResource, Serialize, Deserialize, Clone, Debug)]
+#[derive(CustomResource, Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 #[cfg_attr(not(feature = "schemars"), kube(schema = "disabled"))]

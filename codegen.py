@@ -68,6 +68,10 @@ for crd in crds:
             ", PartialEq, Default, TypedBuilder, JsonSchema)]\npub struct",
         )
         .replace(
+            ", TypedBuilder, JsonSchema)]\n#[kube",
+            ", PartialEq, Default, TypedBuilder, JsonSchema)]\n#[kube",
+        )
+        .replace(
             ", TypedBuilder, JsonSchema)]\npub enum",
             ", PartialEq, TypedBuilder, JsonSchema)]\npub enum",
         )
@@ -90,6 +94,10 @@ for crd in crds:
         .replace(
             ", PartialEq, Default, TypedBuilder, JsonSchema)]\npub struct IssuerStatusConditions",
             ", PartialEq, TypedBuilder, JsonSchema)]\npub struct IssuerStatusConditions",
+        )
+        .replace(
+            ', PartialEq, Default, TypedBuilder, JsonSchema)]\n#[kube(group = "acme.cert-manager.io", version = "v1", kind = "Challenge"',
+            ', PartialEq, TypedBuilder, JsonSchema)]\n#[kube(group = "acme.cert-manager.io", version = "v1", kind = "Challenge"',
         )
     )
     rust_code = "\n".join(
