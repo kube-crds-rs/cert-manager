@@ -153,7 +153,7 @@ pub struct CertificateSpec {
 }
 
 /// CertificateAdditionalOutputFormat defines an additional output format of a Certificate resource. These contain supplementary data formats of the signed certificate chain and paired private key.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct CertificateAdditionalOutputFormats {
@@ -163,7 +163,7 @@ pub struct CertificateAdditionalOutputFormats {
 }
 
 /// CertificateAdditionalOutputFormat defines an additional output format of a Certificate resource. These contain supplementary data formats of the signed certificate chain and paired private key.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub enum CertificateAdditionalOutputFormatsType {
     #[serde(rename = "DER")]
@@ -174,7 +174,7 @@ pub enum CertificateAdditionalOutputFormatsType {
 
 /// Reference to the issuer responsible for issuing the certificate. If the issuer is namespace-scoped, it must be in the same namespace as the Certificate. If the issuer is cluster-scoped, it can be used from any namespace.
 ///  The `name` field of the reference must always be specified.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct CertificateIssuerRef {
@@ -191,7 +191,7 @@ pub struct CertificateIssuerRef {
 }
 
 /// Additional keystore output formats to be stored in the Certificate's Secret.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct CertificateKeystores {
@@ -206,7 +206,7 @@ pub struct CertificateKeystores {
 }
 
 /// JKS configures options for storing a JKS keystore in the `spec.secretName` Secret resource.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct CertificateKeystoresJks {
@@ -218,7 +218,7 @@ pub struct CertificateKeystoresJks {
 }
 
 /// PasswordSecretRef is a reference to a key in a Secret resource containing the password used to encrypt the JKS keystore.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct CertificateKeystoresJksPasswordSecretRef {
@@ -231,7 +231,7 @@ pub struct CertificateKeystoresJksPasswordSecretRef {
 }
 
 /// PKCS12 configures options for storing a PKCS12 keystore in the `spec.secretName` Secret resource.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct CertificateKeystoresPkcs12 {
@@ -243,7 +243,7 @@ pub struct CertificateKeystoresPkcs12 {
 }
 
 /// PasswordSecretRef is a reference to a key in a Secret resource containing the password used to encrypt the PKCS12 keystore.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct CertificateKeystoresPkcs12PasswordSecretRef {
@@ -256,7 +256,7 @@ pub struct CertificateKeystoresPkcs12PasswordSecretRef {
 }
 
 /// Private key options. These include the key algorithm and size, the used encoding and the rotation policy.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct CertificatePrivateKey {
@@ -287,7 +287,7 @@ pub struct CertificatePrivateKey {
 }
 
 /// Private key options. These include the key algorithm and size, the used encoding and the rotation policy.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub enum CertificatePrivateKeyAlgorithm {
     #[serde(rename = "RSA")]
@@ -298,7 +298,7 @@ pub enum CertificatePrivateKeyAlgorithm {
 }
 
 /// Private key options. These include the key algorithm and size, the used encoding and the rotation policy.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub enum CertificatePrivateKeyEncoding {
     #[serde(rename = "PKCS1")]
@@ -308,7 +308,7 @@ pub enum CertificatePrivateKeyEncoding {
 }
 
 /// Private key options. These include the key algorithm and size, the used encoding and the rotation policy.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub enum CertificatePrivateKeyRotationPolicy {
     Never,
@@ -316,7 +316,7 @@ pub enum CertificatePrivateKeyRotationPolicy {
 }
 
 /// Defines annotations and labels to be copied to the Certificate's Secret. Labels and annotations on the Secret will be changed as they appear on the SecretTemplate when added or removed. SecretTemplate annotations are added in conjunction with, and cannot overwrite, the base set of annotations cert-manager sets on the Certificate's Secret.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct CertificateSecretTemplate {
@@ -332,7 +332,7 @@ pub struct CertificateSecretTemplate {
 
 /// Requested set of X509 certificate subject attributes. More info: https://datatracker.ietf.org/doc/html/rfc5280#section-4.1.2.6
 ///  The common name attribute is specified separately in the `commonName` field. Cannot be set if the `literalSubject` field is set.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct CertificateSubject {
@@ -387,7 +387,7 @@ pub struct CertificateSubject {
 }
 
 /// Status of the Certificate. This is set and managed automatically. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct CertificateStatus {
@@ -445,7 +445,7 @@ pub struct CertificateStatus {
 }
 
 /// CertificateCondition contains condition information for an Certificate.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct CertificateStatusConditions {
@@ -481,7 +481,7 @@ pub struct CertificateStatusConditions {
 }
 
 /// CertificateCondition contains condition information for an Certificate.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub enum CertificateStatusConditionsStatus {
     True,

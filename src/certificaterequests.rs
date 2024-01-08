@@ -67,7 +67,7 @@ pub struct CertificateRequestSpec {
 
 /// Reference to the issuer responsible for issuing the certificate. If the issuer is namespace-scoped, it must be in the same namespace as the Certificate. If the issuer is cluster-scoped, it can be used from any namespace.
 ///  The `name` field of the reference must always be specified.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct CertificateRequestIssuerRef {
@@ -84,7 +84,7 @@ pub struct CertificateRequestIssuerRef {
 }
 
 /// Status of the CertificateRequest. This is set and managed automatically. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct CertificateRequestStatus {
@@ -111,7 +111,7 @@ pub struct CertificateRequestStatus {
 }
 
 /// CertificateRequestCondition contains condition information for a CertificateRequest.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct CertificateRequestStatusConditions {
@@ -139,7 +139,7 @@ pub struct CertificateRequestStatusConditions {
 }
 
 /// CertificateRequestCondition contains condition information for a CertificateRequest.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub enum CertificateRequestStatusConditionsStatus {
     True,

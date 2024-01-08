@@ -40,7 +40,11 @@ for crd in crds:
         rust_code = subprocess.run(
             ["kopium", "-f", tmp_file, "--schema=derived", "--docs", "-b"],
             capture_output=True,
-        ).stdout.decode("utf-8")
+        )
+        if rust_code.returncode != 0:
+            print(rust_code.stderr.decode("utf-8"))
+            exit(1)
+        rust_code = rust_code.stdout.decode("utf-8")
 
     rust_code = rust_code.replace(
         f"// kopium command: kopium -f {tmp_file} --schema=derived --docs -b",
@@ -56,6 +60,37 @@ for crd in crds:
             else line
             for line in rust_code.split("\n")
         ]
+    )
+    # We're not setting PartialEq, Hash, Default with kopium because then rustfmt would insert a line break, which would make this script more complicated
+    rust_code = (
+        rust_code.replace(
+            ", TypedBuilder, JsonSchema)]\npub struct",
+            ", PartialEq, Default, TypedBuilder, JsonSchema)]\npub struct",
+        )
+        .replace(
+            ", TypedBuilder, JsonSchema)]\npub enum",
+            ", PartialEq, TypedBuilder, JsonSchema)]\npub enum",
+        )
+        .replace(
+            ", PartialEq, Default, TypedBuilder, JsonSchema)]\npub struct CertificateAdditionalOutputFormats",
+            ", PartialEq, TypedBuilder, JsonSchema)]\npub struct CertificateAdditionalOutputFormats",
+        )
+        .replace(
+            ", PartialEq, Default, TypedBuilder, JsonSchema)]\npub struct CertificateStatusConditions",
+            ", PartialEq, TypedBuilder, JsonSchema)]\npub struct CertificateStatusConditions",
+        )
+        .replace(
+            ", PartialEq, Default, TypedBuilder, JsonSchema)]\npub struct CertificateRequestStatusConditions",
+            ", PartialEq, TypedBuilder, JsonSchema)]\npub struct CertificateRequestStatusConditions",
+        )
+        .replace(
+            ", PartialEq, Default, TypedBuilder, JsonSchema)]\npub struct ClusterIssuerStatusConditions",
+            ", PartialEq, TypedBuilder, JsonSchema)]\npub struct ClusterIssuerStatusConditions",
+        )
+        .replace(
+            ", PartialEq, Default, TypedBuilder, JsonSchema)]\npub struct IssuerStatusConditions",
+            ", PartialEq, TypedBuilder, JsonSchema)]\npub struct IssuerStatusConditions",
+        )
     )
     rust_code = "\n".join(
         [

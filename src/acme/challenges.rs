@@ -51,7 +51,7 @@ pub struct ChallengeSpec {
 }
 
 /// References a properly configured ACME-type Issuer which should be used to create this Challenge. If the Issuer does not exist, processing will be retried. If the Issuer is not an 'ACME' Issuer, an error will be returned and the Challenge will be marked as failed.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeIssuerRef {
@@ -68,7 +68,7 @@ pub struct ChallengeIssuerRef {
 }
 
 /// Contains the domain solving configuration that should be used to solve this challenge resource.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolver {
@@ -87,7 +87,7 @@ pub struct ChallengeSolver {
 }
 
 /// Configures cert-manager to attempt to complete authorizations by performing the DNS01 challenge flow.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverDns01 {
@@ -138,7 +138,7 @@ pub struct ChallengeSolverDns01 {
 }
 
 /// Use the 'ACME DNS' (https://github.com/joohoi/acme-dns) API to manage DNS01 challenge records.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverDns01AcmeDns {
@@ -149,7 +149,7 @@ pub struct ChallengeSolverDns01AcmeDns {
 }
 
 /// A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverDns01AcmeDnsAccountSecretRef {
@@ -162,7 +162,7 @@ pub struct ChallengeSolverDns01AcmeDnsAccountSecretRef {
 }
 
 /// Use the Akamai DNS zone management API to manage DNS01 challenge records.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverDns01Akamai {
@@ -180,7 +180,7 @@ pub struct ChallengeSolverDns01Akamai {
 }
 
 /// A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverDns01AkamaiAccessTokenSecretRef {
@@ -193,7 +193,7 @@ pub struct ChallengeSolverDns01AkamaiAccessTokenSecretRef {
 }
 
 /// A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverDns01AkamaiClientSecretSecretRef {
@@ -206,7 +206,7 @@ pub struct ChallengeSolverDns01AkamaiClientSecretSecretRef {
 }
 
 /// A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverDns01AkamaiClientTokenSecretRef {
@@ -219,7 +219,7 @@ pub struct ChallengeSolverDns01AkamaiClientTokenSecretRef {
 }
 
 /// Use the Microsoft Azure DNS API to manage DNS01 challenge records.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverDns01AzureDns {
@@ -268,7 +268,7 @@ pub struct ChallengeSolverDns01AzureDns {
 }
 
 /// if both this and ClientID are left unset MSI will be used
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverDns01AzureDnsClientSecretSecretRef {
@@ -281,7 +281,7 @@ pub struct ChallengeSolverDns01AzureDnsClientSecretSecretRef {
 }
 
 /// Use the Microsoft Azure DNS API to manage DNS01 challenge records.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub enum ChallengeSolverDns01AzureDnsEnvironment {
     AzurePublicCloud,
@@ -292,7 +292,7 @@ pub enum ChallengeSolverDns01AzureDnsEnvironment {
 }
 
 /// managed identity configuration, can not be used at the same time as clientID, clientSecretSecretRef or tenantID
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverDns01AzureDnsManagedIdentity {
@@ -311,7 +311,7 @@ pub struct ChallengeSolverDns01AzureDnsManagedIdentity {
 }
 
 /// Use the Google Cloud DNS API to manage DNS01 challenge records.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverDns01CloudDns {
@@ -335,7 +335,7 @@ pub struct ChallengeSolverDns01CloudDns {
 }
 
 /// A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverDns01CloudDnsServiceAccountSecretRef {
@@ -348,7 +348,7 @@ pub struct ChallengeSolverDns01CloudDnsServiceAccountSecretRef {
 }
 
 /// Use the Cloudflare API to manage DNS01 challenge records.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverDns01Cloudflare {
@@ -375,7 +375,7 @@ pub struct ChallengeSolverDns01Cloudflare {
 }
 
 /// API key to use to authenticate with Cloudflare. Note: using an API token to authenticate is now the recommended method as it allows greater control of permissions.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverDns01CloudflareApiKeySecretRef {
@@ -388,7 +388,7 @@ pub struct ChallengeSolverDns01CloudflareApiKeySecretRef {
 }
 
 /// API token used to authenticate with Cloudflare.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverDns01CloudflareApiTokenSecretRef {
@@ -401,7 +401,7 @@ pub struct ChallengeSolverDns01CloudflareApiTokenSecretRef {
 }
 
 /// Configures cert-manager to attempt to complete authorizations by performing the DNS01 challenge flow.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub enum ChallengeSolverDns01CnameStrategy {
     None,
@@ -409,7 +409,7 @@ pub enum ChallengeSolverDns01CnameStrategy {
 }
 
 /// Use the DigitalOcean DNS API to manage DNS01 challenge records.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverDns01Digitalocean {
@@ -419,7 +419,7 @@ pub struct ChallengeSolverDns01Digitalocean {
 }
 
 /// A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverDns01DigitaloceanTokenSecretRef {
@@ -432,7 +432,7 @@ pub struct ChallengeSolverDns01DigitaloceanTokenSecretRef {
 }
 
 /// Use RFC2136 ("Dynamic Updates in the Domain Name System") (https://datatracker.ietf.org/doc/rfc2136/) to manage DNS01 challenge records.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverDns01Rfc2136 {
@@ -465,7 +465,7 @@ pub struct ChallengeSolverDns01Rfc2136 {
 }
 
 /// The name of the secret containing the TSIG value. If ``tsigKeyName`` is defined, this field is required.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverDns01Rfc2136TsigSecretSecretRef {
@@ -478,7 +478,7 @@ pub struct ChallengeSolverDns01Rfc2136TsigSecretSecretRef {
 }
 
 /// Use the AWS Route53 API to manage DNS01 challenge records.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverDns01Route53 {
@@ -523,7 +523,7 @@ pub struct ChallengeSolverDns01Route53 {
 }
 
 /// The SecretAccessKey is used for authentication. If set, pull the AWS access key ID from a key within a Kubernetes Secret. Cannot be set when AccessKeyID is set. If neither the Access Key nor Key ID are set, we fall-back to using env vars, shared credentials file or AWS Instance metadata, see: https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/configuring-sdk.html#specifying-credentials
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverDns01Route53AccessKeyIdSecretRef {
@@ -536,7 +536,7 @@ pub struct ChallengeSolverDns01Route53AccessKeyIdSecretRef {
 }
 
 /// The SecretAccessKey is used for authentication. If neither the Access Key nor Key ID are set, we fall-back to using env vars, shared credentials file or AWS Instance metadata, see: https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/configuring-sdk.html#specifying-credentials
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverDns01Route53SecretAccessKeySecretRef {
@@ -549,7 +549,7 @@ pub struct ChallengeSolverDns01Route53SecretAccessKeySecretRef {
 }
 
 /// Configure an external webhook based DNS01 challenge solver to manage DNS01 challenge records.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverDns01Webhook {
@@ -566,7 +566,7 @@ pub struct ChallengeSolverDns01Webhook {
 }
 
 /// Configures cert-manager to attempt to complete authorizations by performing the HTTP01 challenge flow. It is not possible to obtain certificates for wildcard domain names (e.g. `*.example.com`) using the HTTP01 challenge mechanism.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01 {
@@ -585,7 +585,7 @@ pub struct ChallengeSolverHttp01 {
 }
 
 /// The Gateway API is a sig-network community API that models service networking in Kubernetes (https://gateway-api.sigs.k8s.io/). The Gateway solver will create HTTPRoutes with the specified labels in the same namespace as the challenge. This solver is experimental, and fields / behaviour may change in the future.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01GatewayHttpRoute {
@@ -615,7 +615,7 @@ pub struct ChallengeSolverHttp01GatewayHttpRoute {
 ///  * Gateway (Gateway conformance profile) * Service (Mesh conformance profile, experimental, ClusterIP Services only)
 ///  This API may be extended in the future to support additional kinds of parent resources.
 ///  The API object must be valid in the cluster; the Group and Kind must be registered in the cluster for this reference to be valid.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01GatewayHttpRouteParentRefs {
@@ -667,7 +667,7 @@ pub struct ChallengeSolverHttp01GatewayHttpRouteParentRefs {
 }
 
 /// The ingress based HTTP01 challenge solver will solve challenges by creating or modifying Ingress resources in order to route requests for '/.well-known/acme-challenge/XYZ' to 'challenge solver' pods that are provisioned by cert-manager for each Challenge to be completed.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01Ingress {
@@ -714,7 +714,7 @@ pub struct ChallengeSolverHttp01Ingress {
 }
 
 /// Optional ingress template used to configure the ACME challenge solver ingress used for HTTP01 challenges.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressIngressTemplate {
@@ -725,7 +725,7 @@ pub struct ChallengeSolverHttp01IngressIngressTemplate {
 }
 
 /// ObjectMeta overrides for the ingress used to solve HTTP01 challenges. Only the 'labels' and 'annotations' fields may be set. If labels or annotations overlap with in-built values, the values here will override the in-built values.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressIngressTemplateMetadata {
@@ -740,7 +740,7 @@ pub struct ChallengeSolverHttp01IngressIngressTemplateMetadata {
 }
 
 /// Optional pod template used to configure the ACME challenge solver pods used for HTTP01 challenges.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressPodTemplate {
@@ -755,7 +755,7 @@ pub struct ChallengeSolverHttp01IngressPodTemplate {
 }
 
 /// ObjectMeta overrides for the pod used to solve HTTP01 challenges. Only the 'labels' and 'annotations' fields may be set. If labels or annotations overlap with in-built values, the values here will override the in-built values.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressPodTemplateMetadata {
@@ -770,7 +770,7 @@ pub struct ChallengeSolverHttp01IngressPodTemplateMetadata {
 }
 
 /// PodSpec defines overrides for the HTTP01 challenge solver pod. Check ACMEChallengeSolverHTTP01IngressPodSpec to find out currently supported fields. All other fields will be ignored.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressPodTemplateSpec {
@@ -818,7 +818,7 @@ pub struct ChallengeSolverHttp01IngressPodTemplateSpec {
 }
 
 /// If specified, the pod's scheduling constraints
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinity {
@@ -850,7 +850,7 @@ pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinity {
 }
 
 /// Describes node affinity scheduling rules for the pod.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityNodeAffinity {
@@ -865,7 +865,7 @@ pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityNodeAffinity {
 }
 
 /// An empty preferred scheduling term matches all objects with implicit weight 0 (i.e. it's a no-op). A null preferred scheduling term matches no objects (i.e. is also a no-op).
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecution {
@@ -876,7 +876,7 @@ pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityNodeAffinityPrefer
 }
 
 /// A node selector term, associated with the corresponding weight.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreference {
@@ -891,7 +891,7 @@ pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityNodeAffinityPrefer
 }
 
 /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchExpressions
@@ -907,7 +907,7 @@ pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityNodeAffinityPrefer
 }
 
 /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityNodeAffinityPreferredDuringSchedulingIgnoredDuringExecutionPreferenceMatchFields
@@ -923,7 +923,7 @@ pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityNodeAffinityPrefer
 }
 
 /// If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to an update), the system may or may not try to eventually evict the pod from its node.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityNodeAffinityRequiredDuringSchedulingIgnoredDuringExecution {
@@ -934,7 +934,7 @@ pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityNodeAffinityRequir
 }
 
 /// A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityNodeAffinityRequiredDuringSchedulingIgnoredDuringExecutionNodeSelectorTerms {
@@ -949,7 +949,7 @@ pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityNodeAffinityRequir
 }
 
 /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityNodeAffinityRequiredDuringSchedulingIgnoredDuringExecutionNodeSelectorTermsMatchExpressions
@@ -965,7 +965,7 @@ pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityNodeAffinityRequir
 }
 
 /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityNodeAffinityRequiredDuringSchedulingIgnoredDuringExecutionNodeSelectorTermsMatchFields
@@ -981,7 +981,7 @@ pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityNodeAffinityRequir
 }
 
 /// Describes pod affinity scheduling rules (e.g. co-locate this pod in the same node, zone, etc. as some other pod(s)).
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAffinity {
@@ -996,7 +996,7 @@ pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAffinity {
 }
 
 /// The weights of all of the matched WeightedPodAffinityTerm fields are added per-node to find the most preferred node(s)
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAffinityPreferredDuringSchedulingIgnoredDuringExecution {
@@ -1008,7 +1008,7 @@ pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAffinityPreferr
 }
 
 /// Required. A pod affinity term, associated with the corresponding weight.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAffinityPreferredDuringSchedulingIgnoredDuringExecutionPodAffinityTerm {
@@ -1030,7 +1030,7 @@ pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAffinityPreferr
 }
 
 /// A label query over a set of resources, in this case pods.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAffinityPreferredDuringSchedulingIgnoredDuringExecutionPodAffinityTermLabelSelector {
@@ -1045,7 +1045,7 @@ pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAffinityPreferr
 }
 
 /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAffinityPreferredDuringSchedulingIgnoredDuringExecutionPodAffinityTermLabelSelectorMatchExpressions
@@ -1061,7 +1061,7 @@ pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAffinityPreferr
 }
 
 /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAffinityPreferredDuringSchedulingIgnoredDuringExecutionPodAffinityTermNamespaceSelector {
@@ -1076,7 +1076,7 @@ pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAffinityPreferr
 }
 
 /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAffinityPreferredDuringSchedulingIgnoredDuringExecutionPodAffinityTermNamespaceSelectorMatchExpressions
@@ -1092,7 +1092,7 @@ pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAffinityPreferr
 }
 
 /// Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecution {
@@ -1114,7 +1114,7 @@ pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAffinityRequire
 }
 
 /// A label query over a set of resources, in this case pods.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionLabelSelector {
@@ -1129,7 +1129,7 @@ pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAffinityRequire
 }
 
 /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionLabelSelectorMatchExpressions
@@ -1145,7 +1145,7 @@ pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAffinityRequire
 }
 
 /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionNamespaceSelector {
@@ -1160,7 +1160,7 @@ pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAffinityRequire
 }
 
 /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAffinityRequiredDuringSchedulingIgnoredDuringExecutionNamespaceSelectorMatchExpressions
@@ -1176,7 +1176,7 @@ pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAffinityRequire
 }
 
 /// Describes pod anti-affinity scheduling rules (e.g. avoid putting this pod in the same node, zone, etc. as some other pod(s)).
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAntiAffinity {
@@ -1191,7 +1191,7 @@ pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAntiAffinity {
 }
 
 /// The weights of all of the matched WeightedPodAffinityTerm fields are added per-node to find the most preferred node(s)
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecution {
@@ -1203,7 +1203,7 @@ pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAntiAffinityPre
 }
 
 /// Required. A pod affinity term, associated with the corresponding weight.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionPodAffinityTerm {
@@ -1225,7 +1225,7 @@ pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAntiAffinityPre
 }
 
 /// A label query over a set of resources, in this case pods.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionPodAffinityTermLabelSelector {
@@ -1240,7 +1240,7 @@ pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAntiAffinityPre
 }
 
 /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionPodAffinityTermLabelSelectorMatchExpressions
@@ -1256,7 +1256,7 @@ pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAntiAffinityPre
 }
 
 /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionPodAffinityTermNamespaceSelector {
@@ -1271,7 +1271,7 @@ pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAntiAffinityPre
 }
 
 /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAntiAffinityPreferredDuringSchedulingIgnoredDuringExecutionPodAffinityTermNamespaceSelectorMatchExpressions
@@ -1287,7 +1287,7 @@ pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAntiAffinityPre
 }
 
 /// Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecution {
@@ -1309,7 +1309,7 @@ pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAntiAffinityReq
 }
 
 /// A label query over a set of resources, in this case pods.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionLabelSelector {
@@ -1324,7 +1324,7 @@ pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAntiAffinityReq
 }
 
 /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionLabelSelectorMatchExpressions
@@ -1340,7 +1340,7 @@ pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAntiAffinityReq
 }
 
 /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionNamespaceSelector {
@@ -1355,7 +1355,7 @@ pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAntiAffinityReq
 }
 
 /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAntiAffinityRequiredDuringSchedulingIgnoredDuringExecutionNamespaceSelectorMatchExpressions
@@ -1371,7 +1371,7 @@ pub struct ChallengeSolverHttp01IngressPodTemplateSpecAffinityPodAntiAffinityReq
 }
 
 /// LocalObjectReference contains enough information to let you locate the referenced object inside the same namespace.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressPodTemplateSpecImagePullSecrets {
@@ -1382,7 +1382,7 @@ pub struct ChallengeSolverHttp01IngressPodTemplateSpecImagePullSecrets {
 }
 
 /// The pod this Toleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverHttp01IngressPodTemplateSpecTolerations {
@@ -1413,7 +1413,7 @@ pub struct ChallengeSolverHttp01IngressPodTemplateSpecTolerations {
 }
 
 /// Selector selects a set of DNSNames on the Certificate resource that should be solved using this challenge solver. If not specified, the solver will be treated as the 'default' solver with the lowest priority, i.e. if any other solver has a more specific match, it will be used instead.
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeSolverSelector {
@@ -1435,7 +1435,7 @@ pub struct ChallengeSolverSelector {
     pub match_labels: Option<BTreeMap<String, String>>,
 }
 
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub enum ChallengeType {
     #[serde(rename = "HTTP-01")]
@@ -1444,7 +1444,7 @@ pub enum ChallengeType {
     Dns01,
 }
 
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, Default)]
 #[cfg_attr(feature = "builder", derive(TypedBuilder))]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub struct ChallengeStatus {
@@ -1466,7 +1466,7 @@ pub struct ChallengeStatus {
     pub state: Option<ChallengeStatusState>,
 }
 
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
 #[cfg_attr(feature = "schemars", derive(JsonSchema))]
 pub enum ChallengeStatusState {
     #[serde(rename = "valid")]
