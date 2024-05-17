@@ -38,7 +38,16 @@ for crd in crds:
         yaml.dump(crd, f)
         tmp_file = f.name
         rust_code = subprocess.run(
-            ["kopium", "-f", tmp_file, "--schema=derived", "--docs", "-b"],
+            [
+                "kopium",
+                "-f",
+                tmp_file,
+                "--schema=derived",
+                "--docs",
+                "-b",
+                "--derive=Default",
+                "--derive=PartialEq",
+            ],
             capture_output=True,
         )
         if rust_code.returncode != 0:
@@ -47,8 +56,8 @@ for crd in crds:
         rust_code = rust_code.stdout.decode("utf-8")
 
     rust_code = rust_code.replace(
-        f"// kopium command: kopium -f {tmp_file} --schema=derived --docs -b",
-        f"// kopium command: kopium -f {file_name}.yml --schema=derived --docs -b",
+        f"// kopium command: kopium -f {tmp_file} --schema=derived --docs -b --derive=Default --derive=PartialEq",
+        f"// kopium command: kopium -f {file_name}.yml --schema=derived --docs -b --derive=Default --derive=PartialEq",
     )
     rust_code = "\n".join(
         [
@@ -61,55 +70,34 @@ for crd in crds:
             for line in rust_code.split("\n")
         ]
     )
-    # We're not setting PartialEq, Hash, Default with kopium because then rustfmt would insert a line break, which would make this script more complicated
-    rust_code = (
-        rust_code.replace(
-            ", TypedBuilder, JsonSchema)]\npub struct",
-            ", PartialEq, Default, TypedBuilder, JsonSchema)]\npub struct",
-        )
-        .replace(
-            ", TypedBuilder, JsonSchema)]\n#[kube",
-            ", PartialEq, Default, TypedBuilder, JsonSchema)]\n#[kube",
-        )
-        .replace(
-            ", TypedBuilder, JsonSchema)]\npub enum",
-            ", PartialEq, TypedBuilder, JsonSchema)]\npub enum",
-        )
-        .replace(
-            ", PartialEq, Default, TypedBuilder, JsonSchema)]\npub struct CertificateAdditionalOutputFormats",
-            ", PartialEq, TypedBuilder, JsonSchema)]\npub struct CertificateAdditionalOutputFormats",
-        )
-        .replace(
-            ", PartialEq, Default, TypedBuilder, JsonSchema)]\npub struct CertificateStatusConditions",
-            ", PartialEq, TypedBuilder, JsonSchema)]\npub struct CertificateStatusConditions",
-        )
-        .replace(
-            ", PartialEq, Default, TypedBuilder, JsonSchema)]\npub struct CertificateRequestStatusConditions",
-            ", PartialEq, TypedBuilder, JsonSchema)]\npub struct CertificateRequestStatusConditions",
-        )
-        .replace(
-            ", PartialEq, Default, TypedBuilder, JsonSchema)]\npub struct ClusterIssuerStatusConditions",
-            ", PartialEq, TypedBuilder, JsonSchema)]\npub struct ClusterIssuerStatusConditions",
-        )
-        .replace(
-            ", PartialEq, Default, TypedBuilder, JsonSchema)]\npub struct IssuerStatusConditions",
-            ", PartialEq, TypedBuilder, JsonSchema)]\npub struct IssuerStatusConditions",
-        )
-        .replace(
-            ', PartialEq, Default, TypedBuilder, JsonSchema)]\n#[kube(group = "acme.cert-manager.io", version = "v1", kind = "Challenge"',
-            ', PartialEq, TypedBuilder, JsonSchema)]\n#[kube(group = "acme.cert-manager.io", version = "v1", kind = "Challenge"',
-        )
-    )
     rust_code = "\n".join(
         [
             line.replace(
-                ", TypedBuilder, JsonSchema)]",
-                ')]\n#[cfg_attr(feature = "builder", derive(TypedBuilder))]\n#[cfg_attr(feature = "schemars", derive(JsonSchema))]\n#[cfg_attr(not(feature = "schemars"), kube(schema="disabled"))]',
+                ", TypedBuilder, Default, PartialEq, JsonSchema)]",
+                ', Default, PartialEq)]\n#[cfg_attr(feature = "builder", derive(TypedBuilder))]\n#[cfg_attr(feature = "schemars", derive(JsonSchema))]\n#[cfg_attr(not(feature = "schemars"), kube(schema="disabled"))]',
+            ).replace(
+                ", TypedBuilder, PartialEq, JsonSchema)]",
+                ', PartialEq)]\n#[cfg_attr(feature = "builder", derive(TypedBuilder))]\n#[cfg_attr(feature = "schemars", derive(JsonSchema))]\n#[cfg_attr(not(feature = "schemars"), kube(schema="disabled"))]',
+            ).replace(
+                ", Default, PartialEq, JsonSchema)]",
+                ', Default, PartialEq)]\n#[cfg_attr(feature = "schemars", derive(JsonSchema))]\n#[cfg_attr(not(feature = "schemars"), kube(schema="disabled"))]',
+            ).replace(
+                ", PartialEq, JsonSchema)]",
+                ', PartialEq)]\n#[cfg_attr(feature = "schemars", derive(JsonSchema))]\n#[cfg_attr(not(feature = "schemars"), kube(schema="disabled"))]',
             )
             if line.startswith("#[derive(") and "CustomResource" in line
             else line.replace(
-                ", TypedBuilder, JsonSchema)]",
-                ')]\n#[cfg_attr(feature = "builder", derive(TypedBuilder))]\n#[cfg_attr(feature = "schemars", derive(JsonSchema))]',
+                ", TypedBuilder, Default, PartialEq, JsonSchema)]",
+                ', Default, PartialEq)]\n#[cfg_attr(feature = "builder", derive(TypedBuilder))]\n#[cfg_attr(feature = "schemars", derive(JsonSchema))]',
+            ).replace(
+                ", TypedBuilder, PartialEq, JsonSchema)]",
+                ', PartialEq)]\n#[cfg_attr(feature = "builder", derive(TypedBuilder))]\n#[cfg_attr(feature = "schemars", derive(JsonSchema))]',
+            ).replace(
+                ", Default, PartialEq, JsonSchema)]",
+                ', Default, PartialEq)]\n#[cfg_attr(feature = "schemars", derive(JsonSchema))]',
+            ).replace(
+                ", PartialEq, JsonSchema)]",
+                ', PartialEq)]\n#[cfg_attr(feature = "schemars", derive(JsonSchema))]',
             )
             if line.startswith("#[derive(")
             else line
@@ -118,14 +106,16 @@ for crd in crds:
     )
     rust_code = (
         rust_code.replace(
-            "use typed_builder::TypedBuilder;",
-            '#[cfg(feature = "builder")]\nuse typed_builder::TypedBuilder;',
+            "pub use typed_builder::TypedBuilder;",
+            '#[cfg(feature = "builder")]\npub use typed_builder::TypedBuilder;',
         )
         .replace(
-            "use schemars::JsonSchema;",
-            '#[cfg(feature = "schemars")]\nuse schemars::JsonSchema;',
+            "pub use schemars::JsonSchema;",
+            '#[cfg(feature = "schemars")]\npub use schemars::JsonSchema;',
         )
-        .replace("use kube::CustomResource;", "use kube_derive::CustomResource;")
+        .replace(
+            "pub use kube::CustomResource;", "pub use kube_derive::CustomResource;"
+        )
         .replace(
             '#[cfg_attr(feature = "builder", derive(TypedBuilder))]\n#[cfg_attr(feature = "schemars", derive(JsonSchema))]\npub enum',
             '#[cfg_attr(feature = "schemars", derive(JsonSchema))]\npub enum',
