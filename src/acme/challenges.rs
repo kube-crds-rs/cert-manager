@@ -26,7 +26,6 @@ use self::prelude::*;
 )]
 #[kube(namespaced)]
 #[kube(status = "ChallengeStatus")]
-#[kube(derive = "Default")]
 #[kube(derive = "PartialEq")]
 pub struct ChallengeSpec {
     /// The URL to the ACME Authorization resource that this challenge is a part of.
